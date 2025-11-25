@@ -1,0 +1,53 @@
+<!-- App.vue -->
+<template>
+  <div id="app">
+    <router-view />
+  </div>
+</template>
+
+<script>
+import themeManager from './utils/theme-manager';
+export default {
+  name: 'App',
+  mounted() {
+    // Inicializar el tema UNA SOLA VEZ aquí
+    themeManager.init()
+  }
+}
+</script>
+
+<style>
+
+/* Animation utilities */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-enter-active, .slide-leave-active {
+  transition: transform 0.3s ease;
+}
+
+.slide-enter-from {
+  transform: translateX(-100%);
+}
+
+.slide-leave-to {
+  transform: translateX(100%);
+}
+
+/* Loading animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading {
+  animation: spin 1s linear infinite;
+}
+
+
+</style>
