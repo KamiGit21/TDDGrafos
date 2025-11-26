@@ -6,7 +6,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:run": "vitest run",
+    "test:one": "vitest --reporter=verbose",
+    "test:filter": "vitest --reporter=verbose -t"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
@@ -17,6 +24,11 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
-    "vite": "^7.1.2"
+    "@vitest/coverage-v8": "^4.0.14",
+    "@vitest/ui": "^4.0.14",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^27.2.0",
+    "vite": "^7.1.2",
+    "vitest": "^4.0.14"
   }
 }

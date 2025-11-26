@@ -1,0 +1,6 @@
+{
+  "vitest.enable": true,
+  "vitest.commandLine": "npm run test",
+  "testing.automaticallyOpenPeekView": "failureInVisibleDocument",
+  "testing.openTesting": "neverOpen"
+}
