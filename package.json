@@ -23,7 +23,8 @@
     "vue-sweetalert2": "^5.0.11"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.1",
+    "@vitejs/plugin-react": "^5.1.1",
+    "@vitejs/plugin-vue": "^6.0.2",
     "@vitest/coverage-v8": "^4.0.14",
     "@vitest/ui": "^4.0.14",
     "@vue/test-utils": "^2.4.6",
