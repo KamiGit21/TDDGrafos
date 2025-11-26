@@ -113,64 +113,79 @@ describe('AssignmentMatrix', () => {
     expect(cell.text()).toBe('∞');
   });
 
-  /**
-   * @Test - PRUEBA 5
-   */
-  test('debería iniciar en la última iteración', async () => {
-    // 1. Preparación de la prueba
-    const propsWithIterations = {
-      ...defaultProps,
-      hungarianResult: {
-        ...defaultProps.hungarianResult,
-        sources: ['A'],
-        destinations: ['1'],
-        iterations: [
-          { matrix: [[1]], step: 'Paso 1', sources: ['A'], destinations: ['1'] },
-          { matrix: [[2]], step: 'Paso 2', sources: ['A'], destinations: ['1'] },
-          { matrix: [[3]], step: 'Paso 3', sources: ['A'], destinations: ['1'] }
-        ]
-      }
-    };
-    wrapper = mount(AssignmentMatrix, { props: propsWithIterations });
-    await wrapper.vm.$nextTick();
-
-    // 2. Lógica de la prueba
-    const counter = wrapper.find('.iteration-counter');
-
-    // 3. Verificación o Assert
+ /**
+ * @Test - PRUEBA 5
+ */
+test('debería iniciar en la última iteración', async () => {
+  // 1. Preparación de la prueba
+  // Primero montar con datos vacíos
+  wrapper = mount(AssignmentMatrix, { props: defaultProps });
   
-    expect(counter.text()).toContain('Paso 3 / 3');
-  });
+  // Luego actualizar las props para que el watch se dispare
+  const propsWithIterations = {
+    ...defaultProps,
+    hungarianResult: {
+      ...defaultProps.hungarianResult,
+      sources: ['A'],
+      destinations: ['1'],
+      iterations: [
+        { matrix: [[1]], step: 'Paso 1', sources: ['A'], destinations: ['1'] },
+        { matrix: [[2]], step: 'Paso 2', sources: ['A'], destinations: ['1'] },
+        { matrix: [[3]], step: 'Paso 3', sources: ['A'], destinations: ['1'] }
+      ]
+    }
+  };
+  
+  await wrapper.setProps(propsWithIterations);
+  await wrapper.vm.$nextTick();
 
-  /**
-   * @Test - PRUEBA 6
-   */
-  test('debería navegar entre iteraciones correctamente', async () => {
-    // 1. Preparación de la prueba
-    const propsWithIterations = {
-      ...defaultProps,
-      hungarianResult: {
-        ...defaultProps.hungarianResult,
-        sources: ['A'],
-        destinations: ['1'],
-        iterations: [
-          { matrix: [[1]], step: 'Paso 1', sources: ['A'], destinations: ['1'] },
-          { matrix: [[2]], step: 'Paso 2', sources: ['A'], destinations: ['1'] },
-          { matrix: [[3]], step: 'Paso 3', sources: ['A'], destinations: ['1'] }
-        ]
-      }
-    };
-    wrapper = mount(AssignmentMatrix, { props: propsWithIterations });
-    await wrapper.vm.$nextTick();
+  // 2. Lógica de la prueba
+  const counter = wrapper.find('.iteration-counter');
 
-    // 2. Lógica de la prueba
-    const prevButton = wrapper.findAll('.iteration-button')[0];
-    await prevButton.trigger('click');
-    await wrapper.vm.$nextTick();
-    const counter = wrapper.find('.iteration-counter');
-    // 3. Verificación o Assert
-    expect(counter.text()).toContain('Paso 2 / 3');
-  });
+  // 3. Verificación o Assert
+  expect(counter.text()).toContain('Paso 3 / 3');
+});
+
+/**
+ * @Test - PRUEBA 6
+ */
+test('debería navegar entre iteraciones correctamente', async () => {
+  // 1. Preparación de la prueba
+  // Primero montar con datos vacíos
+  wrapper = mount(AssignmentMatrix, { props: defaultProps });
+  
+  // Luego actualizar las props para que el watch se dispare
+  const propsWithIterations = {
+    ...defaultProps,
+    hungarianResult: {
+      ...defaultProps.hungarianResult,
+      sources: ['A'],
+      destinations: ['1'],
+      iterations: [
+        { matrix: [[1]], step: 'Paso 1', sources: ['A'], destinations: ['1'] },
+        { matrix: [[2]], step: 'Paso 2', sources: ['A'], destinations: ['1'] },
+        { matrix: [[3]], step: 'Paso 3', sources: ['A'], destinations: ['1'] }
+      ]
+    }
+  };
+  
+  await wrapper.setProps(propsWithIterations);
+  await wrapper.vm.$nextTick();
+
+  // 2. Lógica de la prueba
+  // Verificar que está en la última iteración (Paso 3)
+  let counter = wrapper.find('.iteration-counter');
+  expect(counter.text()).toContain('Paso 3 / 3');
+  
+  // Hacer clic en el botón "anterior" (primer botón)
+  const prevButton = wrapper.findAll('.iteration-button')[0];
+  await prevButton.trigger('click');
+  await wrapper.vm.$nextTick();
+  
+  // 3. Verificación o Assert
+  counter = wrapper.find('.iteration-counter');
+  expect(counter.text()).toContain('Paso 2 / 3');
+});
 
   /**
    * @Test - PRUEBA 7
