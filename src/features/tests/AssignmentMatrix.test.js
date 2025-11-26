@@ -167,9 +167,8 @@ describe('AssignmentMatrix', () => {
     const prevButton = wrapper.findAll('.iteration-button')[0];
     await prevButton.trigger('click');
     await wrapper.vm.$nextTick();
-
-    // 3. Verificación o Assert
     const counter = wrapper.find('.iteration-counter');
+    // 3. Verificación o Assert
     expect(counter.text()).toContain('Paso 2 / 3');
   });
 
